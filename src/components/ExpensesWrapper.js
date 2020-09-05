@@ -1,38 +1,62 @@
-import React, { useState, useEffect } from 'react'
-import ExpenseList from './ExpenseList'
-import ExpenseForm from './ExpenseForm'
-import ExpensesTotal from './ExpensesTotal'
+import React, { useState, useEffect, Fragment } from 'react';
+import ExpenseList from './ExpenseList';
+import ExpenseForm from './ExpenseForm';
+import ExpensesTotal from './ExpensesTotal';
+import {
+  TableHead,
+  TableCell,
+  TableRow,
+  Paper,
+  TableContainer,
+  makeStyles,
+} from '@material-ui/core';
+
+const useStyles = makeStyles({
+  table: {
+    width: 'auto',
+  },
+});
 
 const Wrapper = () => {
-    const initialExpenses = [{id: 1, name: 'kovork', amount: 120}, {id: 2, name: 'phone', amount: 500}]
-    const [expenses, setExpenses] = useState(initialExpenses)
-    const [total, setTotal] = useState(0)
+  const [expenses, setExpenses] = useState([]);
+  const [total, setTotal] = useState();
 
-    useEffect(() => {
-        setTotal(getTotal())
-    }, [expenses])
-    
-    const addExpense = expense => {
-        setExpenses([...expenses, {...expense, id: expenses.length + 1}])
-    }
+  useEffect(() => {
+    setTotal(getTotal());
+  }, [expenses]);
 
-    const removeExpense = id => {
-        setExpenses(expenses.filter(expense => expense.id !== id))
-    }
+  const addExpense = (expense) => {
+    setExpenses([...expenses, { ...expense, id: expenses.length + 1 }]);
+  };
 
-    const getTotal =() => {
-        let updatedTotal = 0
-        expenses.forEach(expense => updatedTotal += Number(expense.amount))
-        return updatedTotal
-    }
+  const removeExpense = (id) => {
+    setExpenses(expenses.filter((expense) => expense.id !== id));
+  };
 
-    return (        
-        <div>
-            <ExpensesTotal total={total} />
-            <ExpenseForm addExpense={addExpense} />
-            <ExpenseList expenses={expenses} removeExpense={removeExpense} />
-        </div>
-    )
-}
+  const getTotal = () => {
+    let updatedTotal = 0;
+    expenses.forEach((expense) => (updatedTotal += Number(expense.amount)));
+    return updatedTotal;
+  };
 
-export default Wrapper
+  const styles = useStyles();
+
+  return (
+    <Fragment>
+      <ExpensesTotal total={total} />
+      <ExpenseForm addExpense={addExpense} />
+      <TableContainer component={Paper} className={styles.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Amount</TableCell>
+            <TableCell>Remove</TableCell>
+          </TableRow>
+        </TableHead>
+        <ExpenseList expenses={expenses} removeExpense={removeExpense} />
+      </TableContainer>
+    </Fragment>
+  );
+};
+
+export default Wrapper;

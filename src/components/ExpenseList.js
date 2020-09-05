@@ -1,11 +1,12 @@
 import React from 'react'
 import Expense from './Expense'
+import { TableBody } from '@material-ui/core'
 
 const ExpenseList = ({expenses, removeExpense}) => {
     return (
-        <div>
+        <TableBody>
             {expenses.map(expense => <Expense expense={expense} removeExpense={removeExpense} />)}
-        </div>
+        </TableBody>
     )
 }
 

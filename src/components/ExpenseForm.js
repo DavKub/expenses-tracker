@@ -1,25 +1,47 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
+import { TextField, Button } from '@material-ui/core';
 
-const ExpenseForm = ({addExpense}) => {
-    const [name, setName] = useState('')
-    const [amount, setAmount] = useState(0)
+const ExpenseForm = ({ addExpense }) => {
+  const [name, setName] = useState('');
+  const [amount, setAmount] = useState();
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        addExpense({name, amount})
-        setName('')
-        setAmount(0)
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addExpense({ name, amount });
+    setName('');
+    setAmount(0);
+  };
 
-    return (
-        <div>
-            <form style={{padding: "20px"}}>
-                Name: <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} /><br />
-                Amount: <input type="number" placeholder="Amount" value={amount} onChange={e => setAmount(e.target.value)} /><br />
-                <input type="submit" onClick={handleSubmit} />
-            </form>
-        </div>
-    )
-}
+  return (
+    <div>
+      <form>
+        <TextField
+          id="outlined-basic"
+          label="Item name"
+          variant="outlined"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-export default ExpenseForm
+        <TextField
+          id="outlined-basic"
+          label="Amount"
+          variant="outlined"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+      </form>
+    </div>
+  );
+};
+
+export default ExpenseForm;
