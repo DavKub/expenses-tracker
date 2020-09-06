@@ -1,13 +1,22 @@
-import React from 'react';
-import './App.css';
-import ExpensesWrapper from './components/ExpensesWrapper';
+import React from "react";
+import "./App.scss";
+import ExpensesWrapper from "./components/ExpensesWrapper/ExpensesWrapper";
+import Landing from "./components/Landing/Landing";
+import Navbar from "./components/Navbar/Navbar";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <ExpensesWrapper />
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/expenses-tracker" component={ExpensesWrapper} />
+        </Switch>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

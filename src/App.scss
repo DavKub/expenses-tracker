@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  font-family: "Roboto";
+}
+
+.nav {
+  color: white;
+  li {
+    display: inline-block;
+    list-style-type: none;
+    padding: 0 15px;
+
+    a {
+      color: white;
+      text-decoration: none;
+      &:hover {
+        color: rgb(255, 217, 45);
+      }
+    }
+  }
+}
